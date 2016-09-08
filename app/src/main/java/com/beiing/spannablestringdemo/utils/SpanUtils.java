@@ -14,6 +14,7 @@ import android.view.View;
 import com.beiing.spannablestringdemo.bean.Topic;
 import com.beiing.spannablestringdemo.bean.User;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,11 +104,14 @@ public class SpanUtils{
         return spannableString;
     }
 
-
-    public static SpannableString getExpressionSpan(String str){
-        SpannableString span = new SpannableString(str);
-
-        return span;
+    /**
+     * 表情处理
+     * @param context
+     * @param str
+     * @return
+     */
+    public static SpannableString getExpressionSpan(Context context, String str) throws Exception {
+        return ExpressionConvertUtil.getInstace().getExpressionString(context, str);
     }
 
     /**

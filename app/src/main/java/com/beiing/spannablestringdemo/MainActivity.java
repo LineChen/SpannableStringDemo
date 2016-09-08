@@ -13,6 +13,7 @@ import com.beiing.spannablestringdemo.bean.Topic;
 import com.beiing.spannablestringdemo.bean.User;
 import com.beiing.spannablestringdemo.utils.SpanUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvTopic;
 
     TextView tvTestAt;
+
+    TextView tvExpression;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         testTopic();
 
         textAtUsers();
+
+        textExpression();
     }
 
     /**
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
      * 测试话题
      */
     private void testTopic() {
-        String topic = "#舌尖上的大连#四种金牌烤芝士吃法爱吃芝士的盆友不要错过了~L秒拍视频#舌尖上的大连#\n";
+        String topic = "#舌尖上的大连#四种金牌烤芝士吃法爱吃芝士的盆友不要错过了~L秒拍视频\n";
         SpannableString topicText = null;
         try {
             topicText = SpanUtils.getTopicSpan(Color.BLUE, topic, true, new SpanUtils.SpanClickListener<Topic>() {
@@ -101,10 +106,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 测试表情显示
+     */
+    private void textExpression(){
+        String exStr = "今天天气很好啊[呲牙],是不是应该做点什么[色]";
+        SpannableString span = null;
+        try {
+            span = SpanUtils.getExpressionSpan(this, exStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tvExpression.setText(span);
+    }
+
     private void initViews() {
         tvColoredKeywd = (TextView) findViewById(R.id.tv_keyword_colored);
         tvTopic = (TextView) findViewById(R.id.tv_topic);
         tvTestAt = (TextView) findViewById(R.id.tv_test_at);
+        tvExpression = (TextView) findViewById(R.id.tv_text_expression);
     }
 
 
