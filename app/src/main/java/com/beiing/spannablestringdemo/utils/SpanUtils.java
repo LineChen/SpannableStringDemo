@@ -114,6 +114,7 @@ public class SpanUtils{
         return ExpressionConvertUtil.getInstace().getExpressionString(context, str);
     }
 
+
     /**
      * 对spanableString进行正则判断，如果符合要求，则将内容变色
      * @param color
