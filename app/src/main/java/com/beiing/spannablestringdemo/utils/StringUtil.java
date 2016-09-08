@@ -1,15 +1,11 @@
 package com.beiing.spannablestringdemo.utils;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 字符串操作封装
@@ -195,9 +191,7 @@ public final class StringUtil {
             } else {
                 return false;
             }
-
         }
-
     }
 
 }

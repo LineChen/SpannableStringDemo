@@ -4,9 +4,17 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.beiing.spannablestringdemo.bean.Topic;
+import com.beiing.spannablestringdemo.bean.User;
 import com.beiing.spannablestringdemo.utils.SpanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         testTopic();
 
+        textAtUsers();
     }
 
     /**
@@ -47,14 +56,49 @@ public class MainActivity extends AppCompatActivity {
      * 测试话题
      */
     private void testTopic() {
-        String topic = "#舌尖上的大连#四种金牌烤芝士吃法爱吃芝士的盆友不要错过了~L秒拍视频#舌尖上的大连#";
-        SpannableString cardText = null;
+        String topic = "#舌尖上的大连#四种金牌烤芝士吃法爱吃芝士的盆友不要错过了~L秒拍视频#舌尖上的大连#\n";
+        SpannableString topicText = null;
         try {
-            cardText = SpanUtils.getKeyWordSpan(Color.BLUE, topic, SpanUtils.PatternString.TOPIC_PATTERN);
+            topicText = SpanUtils.getTopicSpan(Color.BLUE, topic, true, new SpanUtils.SpanClickListener<Topic>() {
+                @Override
+                public void onSpanClick(Topic t) {
+                    Toast.makeText(MainActivity.this, "点击话题:" + t.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }, new Topic(1, "舌尖上的大连"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tvTopic.setText(cardText);
+        tvTopic.setText(topicText);
+        //如果想实现点击，必须要设置这个
+        tvTopic.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    /**
+     * 测试@好友
+     */
+    private void textAtUsers(){
+        List<User> users = new ArrayList<>();
+        users.add(new User(1, "好友1"));
+        users.add(new User(2, "好友2"));
+        StringBuilder sb = new StringBuilder("快来看看啊");
+        for (User u : users) {
+            sb.append("@").append(u.getName());
+        }
+        sb.append("\n");
+        try {
+            SpannableString atSpan = SpanUtils.getAtUserSpan(Color.BLUE, sb.toString(), true, new SpanUtils.SpanClickListener<User>() {
+                @Override
+                public void onSpanClick(User user) {
+                    Toast.makeText(MainActivity.this, "@好友:" + user.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }, users);
+
+            tvTestAt.setText(atSpan);
+            tvTestAt.setMovementMethod(LinkMovementMethod.getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initViews() {
