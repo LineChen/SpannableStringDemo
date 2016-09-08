@@ -13,3 +13,4 @@ TextView使用SpannableString设置复合文本
 
 ## 效果图
 
+![截图](https://github.com/LineChen/SpannableStringDemo/blob/master/screenshot/sh.gif)
